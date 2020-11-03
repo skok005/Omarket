@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypage">	
+  <!-- parameterType = 생략 가능 / resultType = 생략 불가능 -->
+  
+  <select id="selectTrade" parameterType="String" resultType="net.Omarket.mypage.mypageDTO">
+    select e.eval_cnt, buy.* from 
+   (select count(*) as eval_cnt, u_code_sender, u_code_receiver 
+   from o_eval group by u_code_sender, u_code_receiver) e right outer join
+   (select t.trade_date, t.u_code_buyer, p.* from o_trade t, 
+   (select pr.*, pi.pic_name from o_product pr, (select * from 
+   (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+   (partition by p_code ORDER BY pic_code) as rn from o_product_pic) 
+   where rn=1) pi where pr.p_code=pi.p_code) p where t.p_code=p.p_code and t.u_code_buyer=#{u_code}) buy 
+   on e.u_code_sender=buy.u_code_buyer and e.u_code_receiver=buy.u_code_seller
+  </select>
+  
+  <select id="selectPcode"  parameterType="String" resultType="net.Omarket.mypage.mypageDTO">
+    select * from o_trade where p_code=#{u_code} 
+  </select>
+  
+  <select id="selectProduct" parameterType="String" resultType="net.Omarket.mypage.mypageDTO">
+    select * from (select pr.*, pi.pic_name from o_product pr, 
+    (select * from (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+    (partition by p_code ORDER BY pic_code) as rn from o_product_pic) where rn=1) pi 
+    where pr.p_code=pi.p_code) where u_code_seller=#{u_code}
+  </select>
+  
+  <select id="selectJjim"  parameterType="String" resultType="net.Omarket.mypage.mypageDTO">
+    select * from o_jjim j, (select pr.*, pi.pic_name from o_product pr, 
+    (select * from (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+    (partition by p_code ORDER BY pic_code) as rn from o_product_pic) where rn=1) pi 
+    where pr.p_code=pi.p_code) p 
+    where j.p_code=p.p_code and u_code=#{u_code}
+  </select>
+  
+  <delete id="deleteJjim" parameterType="net.Omarket.mypage.mypageDTO">
+  	delete from o_jjim where u_code=#{u_code} and p_code=#{p_code}
+  </delete>
+  
+   <select id="chatCnt" parameterType="net.Omarket.mypage.mypageDTO" resultType="int">
+    select count(*) as cnt from (select ch.*, p.u_code_seller from 
+    (select l.chlist_join, l.u_code_chl ,r.ch_code, r.p_code from o_chatroomlist l 
+    	inner join o_chatroom r on r.ch_code = l.ch_code) ch 
+    	inner join o_product p on p.p_code=ch.p_code) where u_code_chl${sign}u_code_seller and u_code_chl=#{u_code}
+  </select>
+  
+   <select id="newmCnt" parameterType="net.Omarket.mypage.mypageDTO" resultType="int">
+    select count(*) as cnt from (select ch.*, p.u_code_seller from 
+    (select m.*, c.p_code from o_message m inner join o_chatroom c on m.ch_code=c.ch_code) ch 
+    	inner join o_product p on ch.p_code=p.p_code) where u_code${sign}u_code_seller and u_code=#{u_code}
+  </select>
+  
+  <update id="updateReserve">
+  	update o_product set p_status=#{p_status} where p_code=#{p_code}
+  </update>
+  
+   <insert id="evalPosManner" parameterType="net.Omarket.mypage.mypageDTO">
+     insert into o_eval(eval_code, p_code, u_code_sender, u_code_receiver, eval_content, eval_date, ${tablinks}, 
+     eval_pos_con1, eval_pos_con2, eval_pos_con3, eval_pos_con4, eval_pos_con5) values(
+   eval_seq.nextval, ${p_code}, ${u_code_sender}, ${u_code_receiver}, #{eval_content}, sysdate, '1', 
+   '${eval_pos_con1}', '${eval_pos_con2}', '${eval_pos_con3}', '${eval_pos_con4}', '${eval_pos_con5}')
+  </insert>
+  
+  <insert id="evalNormalManner" parameterType="net.Omarket.mypage.mypageDTO">
+     insert into o_eval(eval_code,p_code,u_code_sender,u_code_receiver, eval_content, eval_date, ${tablinks}, 
+     eval_normal_con1, eval_normal_con2, eval_normal_con3, eval_normal_con4, eval_normal_con5) values(
+   eval_seq.nextval, ${p_code}, ${u_code_sender}, ${u_code_receiver}, #{eval_content}, sysdate, '1', 
+   '${eval_normal_con1}', '${eval_normal_con2}', '${eval_normal_con3}', '${eval_normal_con4}', '${eval_normal_con5}')
+  </insert>
+  
+  <insert id="evalNegaManner" parameterType="net.Omarket.mypage.mypageDTO">
+     insert into o_eval(eval_code,p_code,u_code_sender,u_code_receiver, eval_content, eval_date, ${tablinks}, 
+     					eval_nega_con1, eval_nega_con2, eval_nega_con3, eval_nega_con4, eval_nega_con5) values(
+   		eval_seq.nextval, ${p_code}, ${u_code_sender}, ${u_code_receiver}, #{eval_content}, sysdate, '1', 
+   		'${eval_nega_con1}', '${eval_nega_con2}', '${eval_nega_con3}', '${eval_nega_con4}', '${eval_nega_con5}')
+  </insert>
+  
+  <select id="jbsCnt" parameterType="net.Omarket.mypage.mypageDTO" resultType="net.Omarket.mypage.mypageDTO">
+    select count(${jbsClm}) as jbsCnt, count(${jbsClm}_con1) as ${jbsClm}_cnt1,
+			count(${jbsClm}_con2) as ${jbsClm}_cnt2, count(${jbsClm}_con3) as ${jbsClm}_cnt3,
+			 count(${jbsClm}_con4) as ${jbsClm}_cnt4, count(${jbsClm}_con5) as ${jbsClm}_cnt5
+			  from o_eval where u_code_receiver=${u_code_receiver}
+  </select>
+  
+  <select id="mannerNick" parameterType="net.Omarket.mypage.mypageDTO" resultType="net.Omarket.mypage.mypageDTO">
+    select u_code , count(*) as cnt from o_user
+		group by u_code
+		having u_code = (select u_code from o_user where u_nick = #{u_nick})
+  </select>
+  
+   <update id="productRelist">
+    update o_product set p_edate=sysdate where p_code=#{p_code} 
+  </update>
+  
+</mapper>
+
+
+
+
+
+
+

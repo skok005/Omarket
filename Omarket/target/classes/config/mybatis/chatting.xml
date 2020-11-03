@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chatting">	
+  <select id="select" resultType="net.Omarket.chatting.chattingDTO">
+    select * from O_user
+  </select>
+  
+  <select id="room_check">
+     select count(*) cnt from o_chatroomlist where u_code_chl=#{u_code} and chlist_join='true'
+  </select>
+  
+  <insert id="createChatroom" >
+     insert into o_chatroom(ch_code,p_code)
+     values(chatroom_seq.nextval,#{p_code}) 
+  </insert>
+  
+  <insert id="addChatUser" >
+     insert into o_chatroomlist (chlist_code, u_code_chl, chlist_join, ch_code)
+     values (chatroomlist_seq.nextval,${u_code},'true',chatroom_seq.currval) 
+  </insert>
+  
+  <select id="getChatroomCode" resultType="String" >  
+    select ol.ch_code from(select ch_code from o_chatroom where p_code =#{p_code}) oc
+              inner join ( select ch_code from o_chatroomlist where u_code_chl=#{u_code} group by ch_code)ol
+                            on oc.ch_code = ol.ch_code
+                inner join (select ch_code from o_chatroomlist where u_code_chl=#{you}) oy 
+                            on oc.ch_code = oy.ch_code
+  </select>
+  
+  <select id="checkSeller" resultType="String">
+     select u_code_seller from o_product where p_code=#{p_code} 
+  </select>
+ 
+  <insert id="insertMsg">
+     insert into o_message(msg_code,msg_content,msg_date,msg_check,ch_code,u_code)
+     values(message_seq.nextval,#{msg_content},sysdate,'false',#{ch_code},#{u_code})
+  </insert>
+  
+  <select id="chatList" resultType="net.Omarket.chatting.chattingDTO">
+    select *
+     from o_chatroomlist
+      where u_code_chl=#{u_code} and chlist_join='true'
+  </select>
+  
+  <select id="selectMsg" resultType="net.Omarket.chatting.chattingDTO">
+<!--      select *from(select*from o_chatroom where p_code=#{p_code})oc -->
+<!--         inner join (select*from o_chatroomlist where u_code_chl=#{u_code})ol -->
+<!--             on oc.ch_code = ol.ch_code -->
+<!--         inner join o_message om -->
+<!--             on om.ch_code = ol.ch_code -->
+
+	select * from o_message where ch_code = #{ch_code}
+  </select>
+  
+  <select id="selectMsgCnt" resultType="int">
+    select count(*)as cnt from(select*from o_chatroom where p_code=#{p_code})oc
+    	inner join (select*from o_chatroomlist where u_code_chl=#{u_code})ol
+        	on oc.ch_code = ol.ch_code
+  </select>
+  
+  <select id="getSellerCode" resultType="String">
+  	 select u_code_seller from o_product where p_code=#{p_code}
+  </select>
+  
+   <select id="chatroomlist" resultType="net.Omarket.chatting.chattingDTO">
+		select oc.p_code,p_name,chlist_join,(u_nick)as you,ab.ch_code,msg_content,to_char(msg_date,'yy/mm/dd/hh:mi')as chat_time,msg_check from(
+	    select*from(
+	        select*from o_chatroomlist where ch_code in(
+	            select ch_code From o_chatroomlist where u_code_chl=#{u_code}))where u_code_chl not in(
+	                select u_code_chl from o_chatroomlist where u_code_chl = #{u_code} )) ch
+	                    inner join o_chatroom oc
+	                        on oc.ch_code = ch.ch_code
+	                    inner join o_product op 
+	                        on oc.p_code = op.p_code
+	                     inner join o_user ou
+	                        on ou.u_code = ch.u_code_chl
+	                       inner join  (select om2.*from(
+	                                            select max(msg_code)as msg_code,ch_code from o_message group by ch_code)hh
+	                                                inner join o_message om2
+	                                                    on hh.msg_code = om2.msg_code)ab
+	                on ch.ch_code = ab.ch_code order by msg_date desc
+  </select>
+	
+   <select id="selectRoomMsg" resultType="net.Omarket.chatting.chattingDTO">
+     select *from(select*from o_chatroom where p_code=#{p_code})oc
+        inner join (select*from o_chatroomlist where u_code_chl=#{u_code} and ch_code=#{ch_code})ol
+            on oc.ch_code = ol.ch_code
+        inner join o_message om
+            on om.ch_code = ol.ch_code order by msg_date
+  </select>
+  <select id="getUserNick" resultType="String">
+  	select u_nick from o_user where u_code = #{u_code}
+  </select>
+  <select id="getUserCode" resultType="String">
+  	select u_code from o_user where u_nick = #{u_nick}
+  </select>
+
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="main">	
+  <!-- parameterType = 생략 가능 / resultType = 생략 불가능 -->
+  <insert id="insert" parameterType="net.Omarket.main.mainDTO">
+    insert into o_product values(product_seq.nextval, #{p_name}, 
+      #{u_code_seller}, systimestamp, systimestamp, 'sale', #{p_location}, 
+      0, 0, 0, #{p_category}, #{p_price}, #{p_content}, #{p_nego})
+  </insert>
+  
+  <insert id="insertFile" parameterType="net.Omarket.main.mainDTO">
+    insert into o_product_pic values(product_pic_seq.nextval,
+      product_seq.currval, #{pic_name}, #{pic_oname}, #{pic_size})
+  </insert>
+  
+<!--   <select id="selectAll" resultType="net.Omarket.main.mainDTO"> -->
+<!--      select * from (select rownum as rrn, p.p_code, p.p_name, p.u_code_seller,  -->
+<!--       to_char(p.p_rdate, 'yyyy/mm/dd HH24:mi') as p_rdate,  -->
+<!--       to_char(p.p_edate, 'yyyy/mm/dd HH24:mi') as p_edate, -->
+<!--       p.p_status, p.p_location, p.p_hit, p.p_chatcnt, p.p_jjimcnt,  -->
+<!--       p.p_category, p.p_price, p.p_content, p.p_nego,  -->
+<!--       rn, c.pic_code, c.pic_name from o_product p  -->
+<!--         inner join (select * from  -->
+<!--           (select pic_code, p_code, pic_name, ROW_NUMBER () OVER  -->
+<!--           (partition by p_code ORDER BY pic_code) as rn from o_product_pic)  -->
+<!--         where rn=1) c on p.p_code = c.p_code order by p_edate desc) -->
+<!--         where p_category like '%'||#{p_category}||'%' and rrn between #{start} and #{end} -->
+<!--   </select> -->
+  
+  <select id="selectnormal" resultType="net.Omarket.main.mainDTO">
+    select * from (select rownum as rrn, p.p_code, p.p_name, p.u_code_seller, 
+      to_char(p.p_rdate, 'yyyy/mm/dd HH24:mi') as p_rdate, 
+      to_char(p.p_edate, 'yyyy/mm/dd HH24:mi') as p_edate,
+      p.p_status, p.p_location, p.p_hit, p.p_chatcnt, p.p_jjimcnt, 
+      p.p_category, p.p_price, p.p_content, p.p_nego, ou.U_PREMIUM ,
+      rn, c.pic_code, c.pic_name from (select * from o_product where p_category like '%'||#{p_category}||'%')p 
+        inner join o_user ou
+            on p.u_code_seller = ou.u_code
+                 and ou.u_premium is null
+        inner join (select * from  
+          (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+          (partition by p_code ORDER BY pic_code) as rn from o_product_pic) 
+            where rn=1) c 
+                on p.p_code = c.p_code order by p_edate desc)
+                    where rrn between #{start} and #{end}
+  </select>
+  
+  <select id="selectPremium" resultType="net.Omarket.main.mainDTO">
+ 	select * from (select rownum as rrn, p.p_code, p.p_name, p.u_code_seller, 
+      to_char(p.p_rdate, 'yyyy/mm/dd HH24:mi') as p_rdate, 
+      to_char(p.p_edate, 'yyyy/mm/dd HH24:mi') as p_edate,
+      p.p_status, p.p_location, p.p_hit, p.p_chatcnt, p.p_jjimcnt, 
+      p.p_category, p.p_price, p.p_content, p.p_nego, ou.U_PREMIUM ,
+      rn, c.pic_code, c.pic_name from o_product p 
+        inner join o_user ou
+            on p.u_code_seller = ou.u_code
+                and ou.u_premium = 1
+        inner join (select * from  
+          (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+          (partition by p_code ORDER BY pic_code) as rn from o_product_pic) 
+            where rn=1) c 
+                on p.p_code = c.p_code order by p_edate desc)
+                    where p_category like '%%'
+  </select>
+  
+  <select id="selectCount" resultType="int">        
+    select count(*) from o_user ou
+        inner join (select*from o_product where p_category like '%'||#{p_category}||'%')op
+            on ou.u_code = op.u_code_seller
+               and ou.u_premium is null
+  </select>
+  
+  <select parameterType="net.Omarket.main.mainDTO" id="selectSearch" resultType="net.Omarket.main.mainDTO">
+    select * from(select * from o_product p inner join (select * from 
+    (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+    (partition by p_code ORDER BY pic_code) as rn from o_product_pic)
+    where rn=1) c on p.p_code = c.p_code order by p_edate desc)
+    where ${keyfield} like '%'||#{keyword}||'%' 
+  </select>
+  
+  <select parameterType="net.Omarket.main.mainDTO" id="selectSearchCount" resultType="int">
+    select count(*) as cnt from o_product 
+    where ${keyfield} like '%'||#{keyword}||'%' 
+  </select>
+  
+  <select id="selectDetail" resultType="net.Omarket.main.mainDTO">
+    select p.p_code, p.p_name, p.u_code_seller, 
+      to_char(p.p_rdate, 'yyyy/mm/dd HH24:mi') as p_rdate, 
+      to_char(p.p_edate, 'yyyy/mm/dd HH24:mi') as p_edate,
+      p.p_status, p.p_location, p.p_hit, p.p_chatcnt, p.p_jjimcnt, 
+      p.p_category, p.p_price, p.p_content, p.p_nego, 
+      u.u_id, u.u_nick, u.u_profile, u.u_manner
+      from o_product p 
+        inner join o_user u on p.u_code_seller = u.u_code 
+        where p_code = #{p_code}
+  </select>
+  
+  <select id="selectFileDetail" resultType="net.Omarket.main.mainDTO">
+    select * from o_product_pic where p_code = #{p_code}
+  </select>
+  
+  <update id="updateHit">
+    update o_product set p_hit = p_hit+1 where p_code = #{p_code}
+  </update>
+  
+  <select id="selectSellList" parameterType="int" resultType="net.Omarket.main.mainDTO">
+    select p.p_code, p.p_name, p.u_code_seller, 
+      to_char(p.p_rdate, 'yyyy/mm/dd HH24:mi') as p_rdate, 
+      to_char(p.p_edate, 'yyyy/mm/dd HH24:mi') as p_edate,
+      p.p_status, p.p_location, p.p_hit, p.p_chatcnt, p.p_jjimcnt, 
+      p.p_category, p.p_price, p.p_content, p.p_nego, 
+      rn, c.pic_code, c.pic_name from o_product p 
+        inner join (select * from 
+          (select pic_code, p_code, pic_name, ROW_NUMBER () OVER 
+          (partition by p_code ORDER BY pic_code) as rn from o_product_pic) 
+        where rn=1) c on p.p_code = c.p_code 
+        where u_code_seller = #{u_code_seller} order by p_edate desc
+  </select>
+  
+  <delete id="delete">
+    delete from o_product where p_code = #{p_code}
+  </delete>
+  
+  <delete id="deleteFile">
+    delete from o_product_pic where p_code = #{p_code}
+  </delete>
+  
+  <update id="update">
+    update o_product set p_name = #{p_name}, p_edate = systimestamp, 
+      p_category = #{p_category}, p_price = #{p_price},
+      p_content = #{p_content}, p_nego = #{p_nego}
+      where p_code = #{p_code}
+  </update>
+  
+  <insert id="newInsertFile">
+    insert into o_product_pic values(product_pic_seq.nextval,
+      #{p_code}, #{pic_name}, #{pic_oname}, #{pic_size})
+  </insert>
+  
+   <delete id="updateFile">
+    delete from o_product_pic where pic_code = #{pic_code}
+  </delete>
+  
+  <insert id="insertJjim">
+    insert into o_jjim values(#{u_code}, #{p_code}, systimestamp)
+  </insert>
+  
+  <update id="updateJjim">
+    update o_product set p_jjimcnt = p_jjimcnt+1 where p_code = #{p_code}
+  </update>
+  
+  <select id="selectJjim" resultType="net.Omarket.main.mainDTO">
+    select u_code, p_code from o_jjim where u_code = #{u_code}
+  </select>
+  
+  <insert id="tradeInsert">
+  	insert into o_trade values(trade_seq.nextval, #{p_code}, sysdate, #{u_code})
+  </insert>
+
+</mapper>
+
+
+
+
+
+
+

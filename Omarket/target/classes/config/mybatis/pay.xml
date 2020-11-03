@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pay">	
+  <!-- parameterType = 생략 가능 / resultType = 생략 불가능 -->
+  <select id="select" resultType="net.Omarket.pay.payDTO">
+    select * from O_user
+  </select>
+	<update id="premiumupdate">
+		update o_user set u_premium =1 where u_code = #{u_code}
+	</update>
+	<update id="premium_term_update" parameterType="net.Omarket.pay.payDTO">
+		update o_user set 
+			<if test="u_premium_term !=null">
+				u_premium_term=u_premium_term+30
+			</if>
+			<if test="u_premium_term ==null">
+				u_premium_term = sysdate+30
+			</if>
+				where u_code=#{u_code}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+

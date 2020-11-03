@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.tabs{
+ border-radius: 10px;
+ width: 1010px;
+ margin-top: 50px; 
+ margin-left: 400px;
+ 
+}
+
+.btn{
+  color: #fff;
+  background: rgb(204, 170, 170);
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.btn:hover{
+  background: rgb(180, 133, 133);
+}
+
+.text{
+  width: 150px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+.text_phone{
+  width: 50px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+span.subtitle{
+ font-weight: bold;
+ text-align:left; 
+}

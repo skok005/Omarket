@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+.smallBody{
+  position: relative;
+  top: 60px;
+  display: flex;
+  justify-content: center;
+}
+.product_outer{
+/*     border: 1px solid red; */
+  width: 1180px;
+  text-align: center;
+  position: relative;   
+/*     left : 0;  */
+}
+
+.product_outer .product_title{
+/*   border: 1px solid red; */
+  font-size: 20pt;
+  position: relative;
+  border-bottom: 3px solid rgb(204, 170, 170);
+  height: 40px;
+}
+
+.product_outer .product_title span{
+  position: absolute;
+  left: 550px;
+  font-weight: bold;
+}
+
+.product_outer .product_title_search{
+  position: relative;
+  border-bottom: 3px solid rgb(204, 170, 170);
+  height: 40px;
+}
+
+.product_outer .product_title_search .product_guide{
+  font-size: 20pt;
+  position: absolute;
+  left: 550px;
+  font-weight: bold;
+}
+
+.product_outer .product_title_search .product_cnt{
+/*   border: 1px solid red; */
+  font-size: 15pt;
+  position: absolute;
+  font-weight: bold;
+  left: 1000px;
+}
+
+.product_outer .product_inner{
+  /* border: 1px solid blue;  */
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+/*   border: 1px solid red; */
+}
+
+.product_outer .product_inner .productList{
+  border-bottom: 2px solid rgb(121, 121, 121);
+  width: 330px;
+  height: 500px;
+  margin: 10px;
+  padding: 0;
+  float: left;   
+  padding-bottom: 10px;
+  margin: 30px;
+  text-align: left; 
+}
+
+.product_outer .product_inner .page{
+  border-bottom: 2px solid rgb(121, 121, 121);
+  width: 1110px;
+  margin: 10px;
+  padding: 0;
+  float: left; 
+  padding-bottom: 10px;
+  margin: 30px;
+  text-align: center; 
+}
+
+.intro{
+  font-weight: bold;
+}
+
+.product_outer .productList .productDetail span{
+  display: inline-block;
+}
+.product_outer .productList .productDetail input,
+.product_outer .productList .productDetail span{
+  width: 330px;
+  height: 15px; 
+}
+.product_outer .product_inner .productList .innerProduct{    
+  margin-bottom: 10px; 
+}
+.product_outer .product_inner .productList .innerProduct img{
+  height: 300px; 
+  width: 330px;
+  cursor: pointer;    
+}
+
+.img {
+	width: 250px;
+	height: 275px;
+	margin : auto;
+}
+
+.show {
+	width : 1180px;
+	position: relative;
+	margin: auto;
+}
+
+.show button {
+	position: absolute;
+	z-index: 10;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 50px;
+	height: 50px;
+	border-radius: 100%;
+	background: rgba(0, 0, 0, .5);
+	margin : 0px -50px 0 -30px;
+}
+
+.show button:before {
+	font-family: 'xeicon';
+	color: #fff;
+	font-size: 20px;
+}
+
+.show button.slick-prev {
+	left: 0;
+	font-size: 0;
+	color: transparent;
+  	outline: none;
+}
+
+.show button.slick-prev:before {
+	content: "\e93d";
+	font-family: 'xeicon';
+	outline: none;
+	border: none;
+}
+
+.show button.slick-next {
+	right: 0px;
+	font-size: 0;
+	color: transparent;
+	outline: none;
+}
+
+.show button.slick-next:before {
+	content: "\e940";
+	font-family: 'xeicon';
+	outline: none;
+	border: none;
+}
+.pre{
+	width:1500px;
+	margin : auto;	
+	background : black;
+}
+.premium{
+  margin : 50 px;
+  width: 1500px;
+  text-align: center;
+  font-size:25px;
+  color : pink;
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.0.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	
+	<!-- FileUpload class -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	
+	<!-- dao.context.xml -->
+	<beans:import resource="classpath:/config/mybatis/dao-context.xml" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="net.Omarket.*" />
+	
+	<!-- <beans:bean scope="singleton" autowire="byName" class="net.hb.*" /> -->	
+	            
+	<beans:bean id="transactionFactory" 
+	            class="org.mybatis.spring.transaction.SpringManagedTransactionFactory"/> 
+	            
+	<!-- Websocket -->
+	<websocket:handlers>
+		<websocket:mapping handler="myHanler" path="/ws"/>
+		<websocket:sockjs/>
+	</websocket:handlers>
+	
+	<beans:bean id="myHanler" class="net.Omarket.chatting.SocketHandler"/>
+  
+	<beans:bean id="loginInter" class="net.Omarket.login.loginInterceptor" />
+	<interceptors>
+		<interceptor>
+    
+            <mapping path="/signup_preEdit.do"/>
+            <mapping path="/signupEdit.do"/>
+            
+            <mapping path="/product_write.do"/>
+            <mapping path="/product_insert.do"/>
+            <mapping path="/product_jjim.do"/>
+            <mapping path="/product_delete.do"/>
+            <mapping path="/product_preEdit.do"/>
+            <mapping path="/product_edit.do"/>
+            
+            <mapping path="/mypage.do"/>
+            <mapping path="/deleteJjim.do"/>
+            <mapping path="/eval.do"/>
+            <mapping path="/statusUpdate.do"/>
+            <mapping path="/manner.do"/>
+            
+            <mapping path="/chatting.do"/>
+            <mapping path="/insertMsg.do"/>
+            <mapping path="/createChatroom.do"/>
+            <mapping path="/chatList.do"/>
+            
+             <mapping path="/map.do"/>
+            
+			<beans:ref bean="loginInter"/>
+		</interceptor>
+	</interceptors>	
+
+	<!-- aop설정 
+	<beans:bean id="bk" class="net.hb.crud.aop.Banking"/>
+	<aop:aspectj-autoproxy/>
+    -->
+</beans:beans>
+

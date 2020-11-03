@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/* .mannerContainer, table{ */
+/*     border: 1px dotted black; */
+/* } */
+input[name=tablinks]{
+    display: none;
+}
+.checkCategory{
+    display: none;
+}
+.labelPos, .labelNormal, .labelNega{
+    color: white;
+    background: gray;
+    padding: 10px;
+}
+input[id=pos]:checked ~ .catePos,
+input[id=normal]:checked ~ .cateNormal,
+input[id=nega]:checked ~ .cateNega{
+    display: block;
+    margin-top: 20px;
+}
+.postscriptTable{
+    margin-top: 10px;
+}
+input[id=pos]:checked ~ .labelPos{
+    background: green;
+    font-weight: 800;
+}
+input[id=normal]:checked ~ .labelNormal{
+    background: #0000d0;
+    font-weight: 800;
+}
+input[id=nega]:checked ~ .labelNega{
+    background: #c10000;
+    font-weight: 800;
+}
+.postscriptLabel{
+    font-weight: 700;
+    color: white;
+    padding: 1px;
+}
+.posPscLab{
+    background: blue;
+}
+.normalPscLab{
+    background: green;
+}
+.negaPscLab{
+    background: red;
+}

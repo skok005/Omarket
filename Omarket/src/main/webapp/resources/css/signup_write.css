@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+.smallBody{
+  position: relative;
+  top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.signup_outer{
+ /*border: 1px solid red;*/
+
+  width: 1180px;
+  text-align: center;
+  position: fixed;
+/*     left : 0;  */
+}
+
+.signup_outer .signup_title{
+ /*border: 1px solid red;*/
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  font-size: 20pt;
+  height: 40px;
+}
+
+.signup_outer .signup_inner{
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  background-color: #e2e2e2;
+  
+}
+.table{ 
+  padding-top: 10px;
+  padding-left: 360px;
+}
+
+
+.table_left{
+  text-align:left;  
+  padding-right: 80px;
+}
+
+span.subtitle{
+ font-weight: bold;
+ text-align:left; 
+  
+}
+
+.button_container{
+  padding-top: 10px;
+  padding-left: 60px;
+  padding-right: 150px;
+  padding-bottom: 30px;
+}
+
+.table_right{
+  text-align:left; 
+}
+
+.table_label {
+  text-align:center;
+  
+}
+.text{
+  text-align:right;
+  width: 150px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+  text-align:left;
+}
+
+
+.text_addr{
+  width: 300px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+.text_phone{
+  width: 50px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 10px;
+}
+
+.btn{
+  color: #fff;
+  background: rgb(204, 170, 170);
+  width: 100px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.btn:hover{
+  background: rgb(180, 133, 133);
+}
+
+.popup{
+   padding-top: 30px;
+}

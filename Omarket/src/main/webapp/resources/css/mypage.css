@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+.mypageContainer{
+   position: relative;
+   left: 450px;
+}
+.profileTable{
+  width: 1000px;
+/*     border: 1px solid yellow; */
+  border: 2px solid rgb(204, 170, 170);
+}
+.basicTable{
+  width: 1000px;
+/*     border: 1px solid yellow; */
+  border: 2px solid rgb(204, 170, 170);
+}
+.basicTable td{
+    height: 25%;
+/*     border: 1px solid skyblue; */
+  border: 2px solid rgb(204, 170, 170);
+}
+.profile{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px;
+}
+.profile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+h1{
+    font-size: 28pt;
+}
+.premium{
+    color: gold;
+    font-size: 12pt;
+    font-weight: 800;
+}
+.premiumChange{
+   font-size: 12pt;
+}
+.premiumSet{
+   margin-top: -28px;
+}
+.basic{
+    color: #777;
+}
+.sellButton, .chattingButton{
+   text-align: center;
+   cursor: pointer;
+}
+.jjimTitle{
+   text-align: center;
+   width: 1000px;
+   color: white;
+   background: rgb(204, 170, 170);
+   font-weight: 800;
+}
+.jjim{
+   width: 1000px;
+   max-height: 200px;
+   overflow: auto;
+}
+.tradeList{
+   position: relative;
+}
+.tab{
+   width: 1000px;
+}
+
+.tabcontent{
+   width: 1000px;
+   display: none;
+   max-height: 900px;
+   overflow: auto;
+}
+.sellTable, .buyTable{
+   max-height: 1500px;
+   overflow: auto;
+}
+.posContainer, .normalContainer, .negaContainer{
+    width: 500px;
+    height: 300px;
+    background: rgb(255,255,230);
+    border: 3px solid #aaa;
+    position: relative;
+    top: -470px;
+}
+.tri{
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-top: 0;
+   border-bottom: 15px solid #aaa;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+   top: -16px;
+}
+.posContainer{
+   left: 320px;
+   display: none;
+}
+.posContainer .tri{
+   left: 85px;
+}
+.normalContainer{
+   left: 400px;
+   display: none;
+}
+.normalContainer .tri{
+   left: 190px;
+}
+.negaContainer{
+   left: 450px;
+   display: none;
+}
+.negaContainer .tri{
+   left: 370px;
+}
+.mannerDetail{
+   font-weight: 700;
+   width: 430px;
+   margin: 23px;
+}
+.mannerDetail tr td{
+/*    border: 1px solid red; */
+   padding: 5px;
+}
+.mannerDetail tr .sentence{
+   font-size: 16pt;
+   color: #aaa;
+}
+.mannerDetail tr .count{
+   font-size: 24pt;
+   color: rgb(180,100,10);
+}
+.statusList{
+   display: none;
+}
+
+.buttonn, #buttonn{
+  background-color: rgb(204, 170, 170);
+  font-weight: bold; 
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 120px;
+  height: 30px;
+}

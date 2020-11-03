@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration> 
+		
+  <typeAliases>
+    <typeAlias alias="chattingDto" type="net.Omarket.chatting.chattingDTO"/>
+    <typeAlias alias="loginDto" type="net.Omarket.login.loginDTO"/>
+    <typeAlias alias="mainDto" type="net.Omarket.main.mainDTO"/>
+    <typeAlias alias="mypageDto" type="net.Omarket.mypage.mypageDTO"/>
+    <typeAlias alias="mapDto" type="net.Omarket.map.mapDTO"/>
+    <typeAlias alias="payDto" type="net.Omarket.pay.payDTO"/>
+  </typeAliases>
+
+  <mappers>
+    <mapper resource="config/mybatis/chatting.xml"/>
+    <mapper resource="config/mybatis/login.xml"/>
+    <mapper resource="config/mybatis/main.xml"/>
+    <mapper resource="config/mybatis/mypage.xml"/>
+    <mapper resource="config/mybatis/map.xml"/>
+    <mapper resource="config/mybatis/pay.xml"/>
+  </mappers>
+  
+</configuration>
