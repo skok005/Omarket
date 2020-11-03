@@ -1,7 +1,7 @@
 # Omarket
 
 # 프로젝트 구성원
-  
+  ![깃주소](https://user-images.githubusercontent.com/67405333/97968033-71eba000-1e01-11eb-99eb-b3187a1062e6.JPG)
 
 # 프로젝트 실행
   1. Github Code 복사
