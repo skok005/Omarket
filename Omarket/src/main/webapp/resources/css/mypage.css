@@ -1,30 +1,35 @@
 @charset "UTF-8";
 
 .mypageContainer{
-   position: relative;
-   left: 450px;
+	position: relative;
+	left: 450px;
+}
+.personal{
+	width: 40%;
+	background: rgb(204, 170, 170);
+	padding: 20px
 }
 .profileTable{
-  width: 1000px;
-/*     border: 1px solid yellow; */
-  border: 2px solid rgb(204, 170, 170);
+	width: 1000px;
+	height: 500px;
+	border: 1px solid rgb(204, 170, 170);
+	border-spacing: 0px;
+	margin: 5px 0;
 }
 .basicTable{
-  width: 1000px;
+    width: 990px;
+    border-spacing: 0px;
 /*     border: 1px solid yellow; */
-  border: 2px solid rgb(204, 170, 170);
 }
 .basicTable td{
-    height: 25%;
-/*     border: 1px solid skyblue; */
-  border: 2px solid rgb(204, 170, 170);
+    border-bottom: 2px solid #eee;
+    padding: 5px
 }
 .profile{
     width: 200px;
     height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 20px;
 }
 .profile img{
     width: 100%;
@@ -36,11 +41,21 @@ h1{
 }
 .premium{
     color: gold;
-    font-size: 12pt;
+    font-size: 18pt;
     font-weight: 800;
 }
+.nonePremium{
+	color: dodgerblue;
+	font-weight: 800;
+}
 .premiumChange{
-   font-size: 12pt;
+   font-size: 18pt;
+   font-weight: 700;
+   text-decoration: none;
+   color: #559;
+}
+.premiumChange:hover{
+	color: #759
 }
 .premiumSet{
    margin-top: -28px;
@@ -48,21 +63,113 @@ h1{
 .basic{
     color: #777;
 }
+.mannerTemperature{
+	font-size: 24pt;
+	text-align: center;
+}
+.thermo{
+	margin: 0px;
+}
+#positive,#normal,#negative{
+	font-size: 42px;
+	font-weight: 900;
+	background: white;
+	text-align: center;	
+	width: 20%;
+	border-bottom: 1px solid rgb(204, 170, 170);
+	opacity: 0.95;
+}
+#positive{
+	color: dodgerblue;
+}
+#normal{
+	color: lightgreen;
+}
+#negative{
+	color: crimson;
+}
+.premiumTD{
+	font-size: 12pt;
+	padding: 20px;
+}
 .sellButton, .chattingButton{
+   color: #333;
+   font-size: 20pt;
+   font-weight: 700;
    text-align: center;
+   border: 1px solid white;
    cursor: pointer;
 }
+.sellButton{
+	background: rgb(255,255,200);
+}
+.sellButton:hover{
+	background: rgb(250,245,195);
+}
+.chattingButton{
+	background: rgb(255,230,200);
+}
+.chattingButton:hover{
+	background: rgb(245,220,180);
+}
+.p_title{
+	color: rgb(104, 50, 50);
+	font-size: 13pt;
+	font-weight: 900;
+	text-decoration: none;
+}
+.p_title:hover{
+	color: rgb(20,120,170);
+}
 .jjimTitle{
-   text-align: center;
-   width: 1000px;
-   color: white;
-   background: rgb(204, 170, 170);
-   font-weight: 800;
+	width: 990px;
+	color: white;
+	background: rgb(204, 170, 170);
+	font-size: 16pt;
+	font-weight: 800;
+	text-align: center;
+	padding: 5px;
 }
 .jjim{
-   width: 1000px;
-   max-height: 200px;
-   overflow: auto;
+	width: 1000px;
+	max-height: 200px;
+	overflow: auto;
+}
+.sale,.reserve,.sold{
+	font-weight: 700;
+	background: white;
+	padding: 1px;
+	border: none;
+	border-radius: 1px;
+	margin: 2px;
+	outline: none;
+	cursor: default;
+}
+.sale{
+	color: dodgerblue;
+	border: 2px solid dodgerblue;
+}
+.reserve{
+	color: green;
+	border: 2px solid green;
+}
+.sold{
+	color: crimson;
+	border: 2px solid crimson;
+}
+.justButton{
+	color: rgb(104, 50, 50);
+	font-weight: 700;
+	background: rgba(204, 170, 170, 0.5);
+	border: none;
+   	outline: none;
+	padding: 3px 10px;
+	border-radius: 5px;
+	margin: 2px;
+	cursor: pointer;
+}
+.justButton:hover{
+	background: rgba(204, 170, 170, 0.3);
 }
 .tradeList{
    position: relative;
@@ -70,16 +177,37 @@ h1{
 .tab{
    width: 1000px;
 }
-
+.tablinks{
+   color: rgb(194, 160, 160);
+   background: rgba(204, 170, 170, 0.2);
+   border: none;
+   outline: none;
+   width: 497px;
+   font-size: 16pt;
+   font-weight: 800;
+   padding: 5px;
+   cursor: pointer;
+}
+.tablinks.active{
+   color: #fff;
+   background: rgb(204, 170, 170);
+}
 .tabcontent{
-   width: 1000px;
-   display: none;
-   max-height: 900px;
-   overflow: auto;
+	width: 1000px;
+	display: none;
+	max-height: 900px;
+	overflow: auto;
 }
 .sellTable, .buyTable{
-   max-height: 1500px;
-   overflow: auto;
+	max-height: 1500px;
+	overflow: auto;
+}
+.evalEnd{
+	color: rgba(204, 170, 170, 0.5);
+	font-weight: 700;
+	background: white;
+	border: 2px solid rgba(204, 170, 170, 0.5);
+   	outline: none;
 }
 .posContainer, .normalContainer, .negaContainer{
     width: 500px;
@@ -87,67 +215,56 @@ h1{
     background: rgb(255,255,230);
     border: 3px solid #aaa;
     position: relative;
-    top: -470px;
+    top: -570px;
 }
 .tri{
-   position: absolute;
-   width: 0;
-   height: 0;
-   border-top: 0;
-   border-bottom: 15px solid #aaa;
-   border-left: 15px solid transparent;
-   border-right: 15px solid transparent;
-   top: -16px;
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-top: 0;
+	border-bottom: 15px solid #aaa;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	top: -16px;
 }
 .posContainer{
-   left: 320px;
-   display: none;
+	left: 320px;
+	display: none;
 }
 .posContainer .tri{
-   left: 85px;
+	left: 150px;
 }
 .normalContainer{
-   left: 400px;
-   display: none;
+	left: 400px;
+	display: none;
 }
 .normalContainer .tri{
-   left: 190px;
+	left: 250px;
 }
 .negaContainer{
-   left: 450px;
-   display: none;
+	left: 450px;
+	display: none;
 }
 .negaContainer .tri{
-   left: 370px;
+	left: 420px;
 }
 .mannerDetail{
-   font-weight: 700;
-   width: 430px;
-   margin: 23px;
+	font-weight: 700;
+	width: 430px;
+	margin: 13px 20px;
 }
 .mannerDetail tr td{
-/*    border: 1px solid red; */
-   padding: 5px;
+/* 	border: 1px solid red; */
+	padding: 5px;
 }
 .mannerDetail tr .sentence{
-   font-size: 16pt;
-   color: #aaa;
+	font-size: 16pt;
+	color: #aaa;
 }
 .mannerDetail tr .count{
-   font-size: 24pt;
-   color: rgb(180,100,10);
+	font-size: 24pt;
+	color: rgb(180,100,10);
 }
 .statusList{
-   display: none;
-}
-
-.buttonn, #buttonn{
-  background-color: rgb(204, 170, 170);
-  font-weight: bold; 
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  width: 120px;
-  height: 30px;
+	display: none;
 }
