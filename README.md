@@ -15,3 +15,7 @@
 ![3](https://user-images.githubusercontent.com/67405333/97967375-7a8fa680-1e00-11eb-82ba-1a25fc5c827b.JPG)
 ![4](https://user-images.githubusercontent.com/67405333/97967379-7bc0d380-1e00-11eb-91be-ed4b18d7e487.JPG)
 
+# ● 사용 기술
+![KakaoTalk_20201103_182659148](https://user-images.githubusercontent.com/67405333/97968613-40bf9f80-1e02-11eb-93a2-629fbb47a407.png)
+
+
